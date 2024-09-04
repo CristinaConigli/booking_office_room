@@ -1,0 +1,53 @@
+body{
+    background-color: #1e1e1e;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 800px;
+    align-items: center;
+}
+
+img{
+    width: 200px;
+    margin-bottom:20px
+}
+
+form{
+    width: 300px;
+    height: auto;
+    border: 1px solid rgba(255, 255, 255, 0.438);
+    padding: 20px;
+    line-height: 30px;
+    background-color:#fff;
+    border-radius: 20px;
+}
+
+h1{
+    font-family: "Rajdhani", sans-serif;
+    color:#12598b;
+}
+
+label{
+    font-family: "Rajdhani", sans-serif;
+}
+
+p{
+    font-family: "Rajdhani", sans-serif;
+}
+
+input{
+    padding:5px;
+    border: 1px solid rgba(128, 128, 128, 0.288);
+    border-radius: 6px;
+    width: 80%;
+}
+
+.bottone-input{
+    width: 30%;
+    background-color: #12598b;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 20px;
+}
