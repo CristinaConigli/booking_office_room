@@ -17,6 +17,7 @@ if ($connessione->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $date = $_POST['date'];
+  
     $start_time = $_POST['start_time'];
     $end_time = $_POST['end_time'];
     $id_castato = (int)$userId;
@@ -40,6 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                        VALUES ( ?, ?, ?,?)";
         $stmt = $connessione->prepare($insert_sql);
         $stmt->bind_param('sssi', $date, $start_time, $end_time, $id_castato);
+        
+                $timestamp_date = strtotime($date);
+                $eu_date = date('d-m-Y', $timestamp_date);
 
         if ($stmt->execute()) {
             //mando messaggio modale di riuscita
@@ -48,9 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //inserire invio mail
             if ($has_notify == '1' || $has_notify == 1) {
                 // Esegui la query per ottenere tutte le email degli utenti
-                $email_query = "SELECT email FROM utenti WHERE has_notify=1";
+                $email_query = "SELECT email, company FROM utenti WHERE has_notify=1";
                 $result = $connessione->query($email_query);
-
+              
                 // Verifica che la query abbia restituito dei risultati
                 if ($result->num_rows > 0) {
                     // Itera su ciascun risultato
@@ -58,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $to = $row['email'];
 
                         $subject = "Nuova prenotazione sala grande";
-                        $message = "Ciao,\n\nÈ stata creata una nuova prenotazione per il giorno $date dalle $start_time alle $end_time.\n\nGrazie!";
+                        $message = "Ciao,\n\nÈ stata creata una nuova prenotazione per il giorno $eu_date dalle $start_time alle $end_time, da ".$row['company'].".\n\nGrazie!";
                         $headers = "From: noreply@prenotazione-sala.com";
 
                         // Invia l'email a ciascun indirizzo

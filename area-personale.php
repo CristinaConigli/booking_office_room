@@ -117,7 +117,7 @@ require_once('config.php');
 
     $today = date('Y-m-d');
     // Query per ottenere le prenotazioni
-    $sql = "SELECT utenti.username, prenotazioni.id, prenotazioni.date, prenotazioni.start_time, prenotazioni.end_time, prenotazioni.utente 
+    $sql = "SELECT utenti.username, utenti.company, prenotazioni.id, prenotazioni.date, prenotazioni.start_time, prenotazioni.end_time, prenotazioni.utente 
             FROM prenotazioni
             JOIN utenti ON prenotazioni.utente = utenti.id_utente
             WHERE prenotazioni.date >= ?
@@ -155,12 +155,15 @@ require_once('config.php');
                 $id_utente_prenot = htmlspecialchars($row['utente']);
                 $link_eliminare = 'elimina-card.php?id_p=' . urlencode($row['id']) . '&id_u=' . urlencode($row['utente']);
 
+                $string_date = htmlspecialchars($row['date']);
+                $timestamp_date = strtotime($string_date);
+                $eu_date = date('d-m-Y', $timestamp_date);
                 // Assegna un ID unico per ogni link di eliminazione
                 $elementId = 'delete-' . $row['id'];
 
                 echo "<div class='prenotazione-card'>";
-                echo "<h3>Prenotazione di " . htmlspecialchars($row['username']) . "</h3>";
-                echo "<p>Data: " . htmlspecialchars($row['date']) . "</p>";
+                echo "<h3>Prenotazione di " . htmlspecialchars($row['username']) . " di ".htmlspecialchars($row['company']) . " </h3>";
+                echo "<p>Data: " .$eu_date. "</p>";
                 echo "<p>Dalle ore: " . htmlspecialchars($row['start_time']) . "</p>";
                 echo "<p>Alle ore: " . htmlspecialchars($row['end_time']) . "</p>";
                 echo "<a style='color:red' id='$elementId' href='#' onClick=\"confirmation('$link_eliminare')\">Elimina</a>";
