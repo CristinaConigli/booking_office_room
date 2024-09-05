@@ -1,209 +1,224 @@
-body{
-    margin: 0;
+body {
+  margin: 0;
 }
 
-header{
-    display: flex;
-    width: 100%;
-    background-color:#12598b ;
-    justify-content: center;
-    align-items: center;
-    padding:10px;
+header {
+  display: flex;
+  width: 100%;
+  background-color: #12598b;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }
 
-header div{
-    width: 30%;
+header div {
+  width: 30%;
 }
 
-.logo img{
-    width: 100px;
+.logo img {
+  width: 100px;
 }
 
-.link{
-    text-align: right;
+.link {
+  text-align: right;
 }
 
-.link a{
-    color: #fff;
-    text-decoration: none;
-    font-family: "Rajdhani", sans-serif;
+.link a {
+  color: #fff;
+  text-decoration: none;
+  font-family: "Rajdhani", sans-serif;
 }
 
 .formbold-mb-5 {
-    margin-bottom: 20px;
-  }
-  .formbold-pt-3 {
-    padding-top: 12px;
-  }
-  .formbold-main-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 48px;
-    font-family: "Rajdhani", sans-serif;
-  }
-  
-  .formbold-form-wrapper {
-    margin: 0 auto;
-    max-width: 550px;
-    width: 100%;
-    background: white;
-    font-family: "Rajdhani", sans-serif;
-  }
-  .formbold-form-label {
-    display: block;
-    font-weight: 500;
-    font-size: 16px;
-    color: #07074d;
-    margin-bottom: 12px;
-    font-family: "Rajdhani", sans-serif;
-  }
-  .formbold-form-label-2 {
-    font-weight: 600;
-    font-size: 20px;
-    margin-bottom: 20px;
-    font-family: "Rajdhani", sans-serif;
-  }
-  
-  .formbold-form-input {
-    width: 70%;
-    padding: 12px 24px;
-    border-radius: 6px;
-    border: 1px solid #e0e0e0;
-    background: white;
-    font-weight: 500;
-    font-size: 16px;
-    color: #6b7280;
-    outline: none;
-    resize: none;
-    font-family: "Rajdhani", sans-serif;
-  }
-
-  #guest{
-    width: 86% !important;
-    font-family: "Rajdhani", sans-serif;
-  }
-
-  .formbold-form-input:focus {
-    border-color: #12598b;
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
-    font-family: "Rajdhani", sans-serif;
-  }
-  
-  .formbold-btn {
-    text-align: center;
-    font-size: 16px;
-    border-radius: 6px;
-    padding: 8px 32px;
-    border: none;
-    font-weight: 600;
-    background-color: #12598b;
-    color: white;
-    cursor: pointer;
-    font-family: "Rajdhani", sans-serif;
-  }
-  .formbold-btn:hover {
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
-  }
-  
-  .formbold--mx-3 {
-    margin-left: -12px;
-    margin-right: -12px;
-  }
-  .formbold-px-3 {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-  .flex {
-    display: flex;
-  }
-  .w-full {
-    width: 100%;
-  }
-  .formbold-radio {
-    width: 20px;
-    height: 20px;
-  }
-  .formbold-radio-label {
-    font-weight: 500;
-    font-size: 16px;
-    padding-left: 12px;
-    color: #070707;
-    padding-right: 20px;
-  }
-
-  .prenotazioni-container{
-    justify-content: center;
-    align-items: center;
-    display: grid;
-    grid-template-columns: 30% 30% 30%;
-    column-gap: 30px;
-
-  }
-
-  .titolo-prenotazione{
-    text-align: center;
-    font-family: "Rajdhani", sans-serif;
-    border: 1px solid #12598b ;
-    border-left: none;
-    border-right: none;
-  }
-
-  .prenotazione-card{
-    border: 1px solid #12598b ;
-    border-radius: 6px;
-    margin: 20px;
-    padding: 8px;
-    font-family: "Rajdhani", sans-serif;
-  }
-
-  
-  #myModalok {
-    display: none;
-  }
-  #myModalno{
-    display: none;
-  }
-  .modal{
-    text-align: center;
-    margin-top: 10px;
-  }
-  .modal-ok{
-    display: block;
-    background-color: #87d187;
-    margin-left: 30%;
-    margin-right: 30%;
-    padding: 50px;
-    border-radius: 10px;
-    border: solid;
-    border-color: #14a321;
+  margin-bottom: 20px;
 }
-.modal-no{
-    display: block;
-    background-color: #c94651d3;
-    margin-left: 30%;
-    margin-right: 30%;
-    padding: 50px;
-    border-radius: 10px;
-    border: solid;
-    border-color: #520e13;
-}
-  
-  .testo-modale{
-    font-family: 'Rajdhani';
 
-  }
-  .button-modale{
-    text-align: center;
-    font-size: 16px;
-    border-radius: 6px;
-    padding: 8px 15px;
-    border: none;
-    font-weight: 600;
-    background-color: #12598b;
-    color: white;
-    cursor: pointer;
-    font-family: "Rajdhani", sans-serif;
+.formbold-pt-3 {
+  padding-top: 12px;
+}
+
+.formbold-main-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.formbold-form-wrapper {
+  margin: 0 auto;
+  max-width: 550px;
+  width: 100%;
+  background: white;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.formbold-form-label {
+  display: block;
+  font-weight: 500;
+  font-size: 16px;
+  color: #07074d;
+  margin-bottom: 12px;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.formbold-form-label-2 {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.formbold-form-input {
+  width: 70%;
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  font-weight: 500;
+  font-size: 16px;
+  color: #6b7280;
+  outline: none;
+  resize: none;
+  font-family: "Rajdhani", sans-serif;
+}
+
+#guest {
+  width: 86% !important;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.formbold-form-input:focus {
+  border-color: #12598b;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+  font-family: "Rajdhani", sans-serif;
+}
+
+.formbold-btn {
+  text-align: center;
+  font-size: 16px;
+  border-radius: 6px;
+  padding: 8px 32px;
+  border: none;
+  font-weight: 600;
+  background-color: #12598b;
+  color: white;
+  cursor: pointer;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.formbold-btn:hover {
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.formbold--mx-3 {
+  margin-left: -12px;
+  margin-right: -12px;
+}
+
+.formbold-px-3 {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.flex {
+  display: flex;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.formbold-radio {
+  width: 20px;
+  height: 20px;
+}
+
+.formbold-radio-label {
+  font-weight: 500;
+  font-size: 16px;
+  padding-left: 12px;
+  color: #070707;
+  padding-right: 20px;
+}
+
+.prenotazioni-container {
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  column-gap: 30px;
+
+}
+
+.titolo-prenotazione {
+  text-align: center;
+  font-family: "Rajdhani", sans-serif;
+  border: 1px solid #12598b;
+  border-left: none;
+  border-right: none;
+}
+
+.prenotazione-card {
+  border: 1px solid #12598b;
+  border-radius: 6px;
+  margin: 20px;
+  padding: 8px;
+  font-family: "Rajdhani", sans-serif;
+}
+
+
+#myModalok {
+  display: none;
+}
+
+#myModalno {
+  display: none;
+}
+
+.modal {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.modal-ok {
+  display: block;
+  background-color: #87d187;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 50px;
+  border-radius: 10px;
+  border: solid;
+  border-color: #14a321;
+}
+
+.modal-no {
+  display: block;
+  background-color: #c94651d3;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 50px;
+  border-radius: 10px;
+  border: solid;
+  border-color: #520e13;
+}
+
+.testo-modale {
+  font-family: 'Rajdhani';
+
+}
+
+.button-modale {
+  text-align: center;
+  font-size: 16px;
+  border-radius: 6px;
+  padding: 8px 15px;
+  border: none;
+  font-weight: 600;
+  background-color: #12598b;
+  color: white;
+  cursor: pointer;
+  font-family: "Rajdhani", sans-serif;
 }
 
 @media (max-width: 600px) {
@@ -211,23 +226,31 @@ header div{
     width: 50%;
   }
 
-  .flex{
+  .flex {
     flex-direction: column;
   }
 
-  .formbold-form-input{
+  .formbold-form-input {
     width: 100%;
   }
 
-  .prenotazioni-container{
+  .prenotazioni-container {
     grid-template-columns: 100%
   }
 
-  .prenotazione-card{
+  .prenotazione-card {
     width: 80%;
   }
-  .modal{
-    margin-left: 5%; 
+
+  .modal {
+    margin-left: 5%;
     margin-right: 5%;
   }
+}
+
+.delete_button {
+  color: red;
+  background-color: white;
+  padding: 3px 6px 3px 6px;
+  border-radius: 10%;
 }

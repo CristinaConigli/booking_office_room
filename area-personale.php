@@ -6,7 +6,7 @@ if (!isset($_SESSION['loggato']) || $_SESSION['loggato'] !== true) {
     header("Location: index.php");
     exit;
 }
-$notify= $_SESSION['has_notify'] ;
+$notify = $_SESSION['has_notify'];
 // Include il file di configurazione per la connessione al database
 require_once('config.php');
 ?>
@@ -59,17 +59,18 @@ require_once('config.php');
     <!-- fine modale no-->
     <div class="formbold-main-wrapper">
         <div>
-            <h4>Hai le notifiche mail <strong>  <?php if($notify ==1 || $notify=='1'){
-                echo "attivate";
-            }else{  echo "disattivate";
-            }?></strong></h4>
+            <h4>Hai le notifiche mail <strong> <?php if ($notify == 1 || $notify == '1') {
+                                                    echo "attivate";
+                                                } else {
+                                                    echo "disattivate";
+                                                } ?></strong></h4>
             <form action="disattiva_notifica.php" method="GET">
                 <select name="notificami">
-                   
+
                     <option value="1">attiva</option>
                     <option value="0">disattiva</option>
                 </select>
-                <input type="submit"  value="Salva"></input>
+                <input type="submit" value="Salva"></input>
             </form>
         </div>
 
@@ -89,7 +90,7 @@ require_once('config.php');
                     </div>
                     <div class="w-full sm:w-half formbold-px-3">
                         <div class="formbold-mb-5 w-full">
-                        <label for="sala" class="formbold-form-label">Sala</label>
+                            <label for="sala" class="formbold-form-label">Sala</label>
                             <select name="sala" require>
                                 <option value="big">grande</option>
                                 <option value="small">piccola</option>
@@ -124,9 +125,11 @@ require_once('config.php');
     }
 
 
+
     $today = date('Y-m-d');
     // Query per ottenere le prenotazioni
-    $sql = "SELECT utenti.username, utenti.company, prenotazioni.id, prenotazioni.date, prenotazioni.start_time, prenotazioni.end_time, prenotazioni.utente 
+    $sql = "SELECT utenti.username, utenti.company, prenotazioni.id, prenotazioni.date, 
+            prenotazioni.start_time, prenotazioni.end_time, prenotazioni.utente, prenotazioni.id_sala
             FROM prenotazioni
             JOIN utenti ON prenotazioni.utente = utenti.id_utente
             WHERE prenotazioni.date >= ?
@@ -159,28 +162,49 @@ require_once('config.php');
 
         // Verifica se ci sono risultati e visualizzazione delle prenotazioni
         if ($result->num_rows > 0) {
+
             $idUser = intval($_SESSION['id_utente']);
             while ($row = $result->fetch_assoc()) {
+                //grafica sala
+                $sala_id = intval($row['id_sala']);
+                $sala_sql = "SELECT name FROM sale WHERE id = ?";
+                $stmt_sala = $connessione->prepare($sala_sql);
+                $stmt_sala->bind_param('i', $sala_id);
+                $stmt_sala->execute();
+                $result_sala = $stmt_sala->get_result();
+
+                if ($result_sala->num_rows > 0) {
+                    $row_sala = $result_sala->fetch_assoc();
+                    $stampa_sala = $row_sala['name'];
+                } else {
+                    $stampa_sala = "";
+                }
                 $id_utente_prenot = htmlspecialchars($row['utente']);
                 $link_eliminare = 'elimina-card.php?id_p=' . urlencode($row['id']) . '&id_u=' . urlencode($row['utente']);
 
+                //formattazione data europea
                 $string_date = htmlspecialchars($row['date']);
                 $timestamp_date = strtotime($string_date);
                 $eu_date = date('d-m-Y', $timestamp_date);
+
                 // Assegna un ID unico per ogni link di eliminazione
                 $elementId = 'delete-' . $row['id'];
-                //controllo se username null
-                $stampa_user_dati= (htmlspecialchars($row['username']) == null || htmlspecialchars($row['username']) == "")         ? 
-                "<h3>Prenotazione di ".htmlspecialchars($row['company']) . " </h3>"                                                 : 
-                "<h3>Prenotazione di " . htmlspecialchars($row['username']) . " di ".htmlspecialchars($row['company']) . " </h3>"   ;
                 
-                echo "<div class='prenotazione-card'>";
+                //controllo se username null
+                $stampa_user_dati = (htmlspecialchars($row['username']) == null || htmlspecialchars($row['username']) == "")         ?
+                    "<h3>Prenotazione di " . htmlspecialchars($row['company']) . " </h3>"                                                 :
+                    "<h3>Prenotazione di " . htmlspecialchars($row['username']) . " di " . htmlspecialchars($row['company']) . " </h3>";
+
+
+                $cardId = 'card-' . $row['id'];
+                echo "<div id='$cardId' data-sala='$stampa_sala' class='prenotazione-card'>";
                 // echo "<h3>Prenotazione di " . htmlspecialchars($row['username']) . " di ".htmlspecialchars($row['company']) . " </h3>";
                 echo $stampa_user_dati;
-                echo "<p>Data: " .$eu_date. "</p>";
+                echo "<p>Sala: " . $stampa_sala . "</p>";
+                echo "<p>Data: " . $eu_date . "</p>";
                 echo "<p>Dalle ore: " . htmlspecialchars($row['start_time']) . "</p>";
                 echo "<p>Alle ore: " . htmlspecialchars($row['end_time']) . "</p>";
-                echo "<a style='color:red' id='$elementId' href='#' onClick=\"confirmation('$link_eliminare')\">Elimina</a>";
+                echo "<a class='delete_button' id='$elementId' href='#' onClick=\"confirmation('$link_eliminare')\">Elimina</a>";
                 echo "</div>";
 
                 // Aggiungi JavaScript per gestire la visibilità
@@ -200,6 +224,22 @@ require_once('config.php');
         ?>
     </div>
     <script>
+        //cambio colore in base alla sala prenotata
+        document.addEventListener("DOMContentLoaded", function() {
+            // Seleziona tutte le card con la classe "prenotazione-card"
+            var cards = document.querySelectorAll('.prenotazione-card');
+
+            // Itera su ciascuna card e cambia il colore in base alla sala prenotata
+            cards.forEach(function(card) {
+                var sala = card.getAttribute('data-sala');
+                if (sala === "grande") {
+                    card.style.background = "#7fbaff"; // Colore per sala grande
+                } else if (sala === "piccola") {
+                    card.style.background = "#f3f37f"; // Colore per sala piccola
+                }
+            });
+        });
+
         function confirmation(link_delete) {
             var ask = confirm('Sei sicuro/a di voler eliminare questa prenotazione?');
             if (ask) {
