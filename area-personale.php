@@ -88,6 +88,15 @@ require_once('config.php');
                         </div>
                     </div>
                     <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5 w-full">
+                        <label for="sala" class="formbold-form-label">Sala</label>
+                            <select>
+                                <option value="big">grande</option>
+                                <option value="small">piccola</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-half formbold-px-3">
                         <div class="formbold-mb-5">
                             <label for="start_time" class="formbold-form-label">Dalle ore</label>
                             <input type="time" name="start_time" id="start_time" class="formbold-form-input" required />
