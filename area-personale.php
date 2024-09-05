@@ -90,7 +90,7 @@ require_once('config.php');
                     <div class="w-full sm:w-half formbold-px-3">
                         <div class="formbold-mb-5 w-full">
                         <label for="sala" class="formbold-form-label">Sala</label>
-                            <select>
+                            <select name="sala" require>
                                 <option value="big">grande</option>
                                 <option value="small">piccola</option>
                             </select>
@@ -169,9 +169,14 @@ require_once('config.php');
                 $eu_date = date('d-m-Y', $timestamp_date);
                 // Assegna un ID unico per ogni link di eliminazione
                 $elementId = 'delete-' . $row['id'];
-
+                //controllo se username null
+                $stampa_user_dati= (htmlspecialchars($row['username']) == null || htmlspecialchars($row['username']) == "")         ? 
+                "<h3>Prenotazione di ".htmlspecialchars($row['company']) . " </h3>"                                                 : 
+                "<h3>Prenotazione di " . htmlspecialchars($row['username']) . " di ".htmlspecialchars($row['company']) . " </h3>"   ;
+                
                 echo "<div class='prenotazione-card'>";
-                echo "<h3>Prenotazione di " . htmlspecialchars($row['username']) . " di ".htmlspecialchars($row['company']) . " </h3>";
+                // echo "<h3>Prenotazione di " . htmlspecialchars($row['username']) . " di ".htmlspecialchars($row['company']) . " </h3>";
+                echo $stampa_user_dati;
                 echo "<p>Data: " .$eu_date. "</p>";
                 echo "<p>Dalle ore: " . htmlspecialchars($row['start_time']) . "</p>";
                 echo "<p>Alle ore: " . htmlspecialchars($row['end_time']) . "</p>";

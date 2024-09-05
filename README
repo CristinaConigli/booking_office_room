@@ -2,3 +2,5 @@ modali di messaggio di conferma o di non riuscita
 controllo di visualizzazione delle prenotazioni solo da oggi in poi
 possibilità di eliminare la prenotazione propria, ma non quella di altri
 login con email
+card mostra solo azienda se l'account non ha username 
+(non diamo lo username a tutti gli uffici tranne che al team deva)
