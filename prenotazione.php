@@ -5,7 +5,7 @@ if (isset($_SESSION['loggato']) && $_SESSION['loggato'] === true) {
     $userId = $_SESSION['id_utente']; // Accedi all'ID utente
     $username = $_SESSION['username'];
     $fName = $_SESSION['username'];
-    $has_notify = $_SESSION['has_notify'];
+    //$has_notify = $_SESSION['has_notify'];
 }
 
 require_once('config.php');
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: area-personale.php?p=ok");
 
             //inserire invio mail
-            if ($has_notify == '1' || $has_notify == 1) {
+          //  if ($has_notify == '1' || $has_notify == 1) {
                 // Esegui la query per ottenere tutte le email degli utenti
                 $email_query = "SELECT email, company FROM utenti WHERE has_notify=1";
                 $result = $connessione->query($email_query);
@@ -82,16 +82,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         $subject = "Nuova prenotazione sala " . $stampa_sala;
 
-                        $message = "Ciao,\n\nÈ stata creata una nuova prenotazione per il giorno $eu_date dalle $start_time alle $end_time, da " . $row['company'] . ".\n\nGrazie!";
+                        $message = "Ciao, "."\r\n"."È stata creata una nuova prenotazione per il giorno $eu_date dalle $start_time alle $end_time. "."\r\n"."Grazie!";
                         $headers = "From: noreply@prenotazione-sala.com";
 
-                        // Invia l'email a ciascun indirizzo
+						// Headers per l'email con UTF-8
+						$headers .= "MIME-Version: 1.0" . "\r\n";
+						$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+						
+						// Invia l'email a ciascun indirizzo
                         mail($to, $subject, $message, $headers);
                     }
                 } else {
                     echo "Nessuna email trovata.";
                 }
-            }
+            //}
         }
         $stmt->close();
     }

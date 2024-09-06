@@ -1,6 +1,17 @@
 <?php
 session_start();
+// Imposta un percorso valido per il cookie della sessione
+session_set_cookie_params([
+    'path' => '/',
+    'httponly' => true,
+    'secure' => isset($_SERVER['HTTPS']), // Usa solo su HTTPS
+    'samesite' => 'Strict', // o 'Lax'
+]);
+
+
 require_once('config.php');
+
+
 // Controlla se il token CSRF è presente e valido
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (

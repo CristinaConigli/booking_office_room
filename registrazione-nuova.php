@@ -30,7 +30,7 @@
 
     <div>
     <label for="username"><b>username</b></label><br>
-    <input type="text" name="username" id="username" required>
+    <input type="text" name="username" id="username" >
     </div>
 
     <div>
