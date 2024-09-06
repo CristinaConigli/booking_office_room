@@ -240,8 +240,10 @@ require_once('config.php');
                 var sala = card.getAttribute('data-sala');
                 if (sala === "grande") {
                     card.style.background = "#7fbaff"; // Colore per sala grande
+                    card.style.border = "transparent";
                 } else if (sala === "piccola") {
-                    card.style.background = "#f3f37f"; // Colore per sala piccola
+                    card.style.background = "lightgreen"; // Colore per sala piccola
+                    card.style.border = "transparent";
                 }
             });
         });

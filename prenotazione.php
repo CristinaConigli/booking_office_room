@@ -13,6 +13,17 @@ require_once('config.php');
 if ($connessione->connect_error) {
     die("Connessione al database fallita: " . $connessione->connect_error);
 }
+// Includi manualmente i file di PHPMailer
+require 'libs/phpmailer/src/Exception.php';
+require 'libs/phpmailer/src/PHPMailer.php';
+require 'libs/phpmailer/src/SMTP.php';
+
+// Import PHPMailer classes into the global namespace
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -61,16 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $connessione->prepare($insert_sql);
         $stmt->bind_param('sssii', $date, $start_time, $end_time, $id_castato, $id_sala);
 
-        $timestamp_date = strtotime($date);
-        $eu_date = date('d-m-Y', $timestamp_date);
 
         if ($stmt->execute()) {
             //mando messaggio modale di riuscita
             header("Location: area-personale.php?p=ok");
 
             //inserire invio mail
-          //  if ($has_notify == '1' || $has_notify == 1) {
-                // Esegui la query per ottenere tutte le email degli utenti
+          
                 $email_query = "SELECT email, company FROM utenti WHERE has_notify=1";
                 $result = $connessione->query($email_query);
 
@@ -79,28 +87,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Itera su ciascun risultato
                     while ($row = $result->fetch_assoc()) {
                         $to = $row['email'];
+                        $company = $row['company'];  
+                       
+               // Configura PHPMailer
+                    $mail = new PHPMailer(true);
+                    try {
+                        // Server settings
+                        $mail->isSMTP();
+                        $mail->Host = 'smtp.gmail.com';
+                        $mail->SMTPAuth = true;
+                        $mail->Username = 'noreply.devaticket@gmail.com'; // Cambia con la tua email
+                        $mail->Password = 'rwzb wcsc iemy kaxp';  // Usa la tua password per le app
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                        $mail->Port = 587;
 
-                        $subject = "Nuova prenotazione sala " . $stampa_sala;
+                        // Impostazioni mittente e destinatario
+                        $mail->setFrom('noreply@prenotazione-sala.com', 'Prenotazioni Sala');
+                        $mail->addAddress($to, $company);
 
-                        $message = "<html><body>";
-                        $message .= "Ciao,<br><br>";
-                        $message .= "È stata creata una nuova prenotazione per il giorno $eu_date dalle $start_time alle $end_time.<br><br>";
-                        $message .= "Grazie!";
-                        $message .= "</body></html>";
-                    
-                        $headers = "From: noreply@prenotazione-sala.com" . "\r\n";
-                    
-                        // Headers per l'email con UTF-8
-                        $headers .= "MIME-Version: 1.0" . "\r\n";
-                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-						
-						// Invia l'email a ciascun indirizzo
-                        mail($to, $subject, $message, $headers);
+                        $mail->CharSet = 'UTF-8';
+                        // Contenuto email
+                        $mail->isHTML(true);
+                        $mail->Subject = "Nuova prenotazione sala $stampa_sala";
+                        $mail->Body    = "<html><body>
+                                            Ciao,<br><br>
+                                            È stata creata una nuova prenotazione per il giorno $date dalle $start_time alle $end_time.<br><br>
+                                            Grazie!
+                                          </body></html>";
+
+                        // Invia email
+                        $mail->send();
+                    } catch (Exception $e) {
+                        echo "Mailer Error: {$mail->ErrorInfo}";
                     }
-                } else {
-                    echo "Nessuna email trovata.";
                 }
-            //}
+            } else {
+                echo "Nessuna email trovata.";
+            }
         }
         $stmt->close();
     }
