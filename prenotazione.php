@@ -82,12 +82,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         $subject = "Nuova prenotazione sala " . $stampa_sala;
 
-                        $message = "Ciao, "."\r\n"."È stata creata una nuova prenotazione per il giorno $eu_date dalle $start_time alle $end_time. "."\r\n"."Grazie!";
-                        $headers = "From: noreply@prenotazione-sala.com";
-
-						// Headers per l'email con UTF-8
-						$headers .= "MIME-Version: 1.0" . "\r\n";
-						$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        $message = "<html><body>";
+                        $message .= "Ciao,<br><br>";
+                        $message .= "È stata creata una nuova prenotazione per il giorno $eu_date dalle $start_time alle $end_time.<br><br>";
+                        $message .= "Grazie!";
+                        $message .= "</body></html>";
+                    
+                        $headers = "From: noreply@prenotazione-sala.com" . "\r\n";
+                    
+                        // Headers per l'email con UTF-8
+                        $headers .= "MIME-Version: 1.0" . "\r\n";
+                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 						
 						// Invia l'email a ciascun indirizzo
                         mail($to, $subject, $message, $headers);
