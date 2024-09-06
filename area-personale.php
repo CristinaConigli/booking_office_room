@@ -7,6 +7,12 @@ if (!isset($_SESSION['loggato']) || $_SESSION['loggato'] !== true) {
     exit;
 }
 $notify = $_SESSION['has_notify'];
+// Determina il nome da mostrare
+if (empty($_SESSION['username'])) {
+    $name = $_SESSION['company'] ?? 'Ospite';
+} else {
+    $name = $_SESSION['username'];
+}
 // Include il file di configurazione per la connessione al database
 require_once('config.php');
 ?>
@@ -32,7 +38,7 @@ require_once('config.php');
             <a href="area-personale.php"><img src="logo-prenotazione-removebg-preview.png" alt="Logo"></a>
         </div>
         <div>
-            <h3 class="titolo-prenotazione" style="color: white;">ciao <?php echo $_SESSION['username'] ?> !</h3>
+            <h3 class="titolo-prenotazione" style="color: white;">Ciao <?php echo htmlspecialchars($name); ?>!</h3>
 
         </div>
         <div class="link">
@@ -65,12 +71,12 @@ require_once('config.php');
                                                     echo "disattivate";
                                                 } ?></strong></h4>
             <form action="disattiva_notifica.php" method="GET">
-                <select name="notificami">
+                <select name="notificami" class="selection_notify">
 
                     <option value="1">attiva</option>
                     <option value="0">disattiva</option>
                 </select>
-                <input type="submit" value="Salva"></input>
+                <input type="submit" class="notifiche_butt" value="Salva"></input>
             </form>
         </div>
 
@@ -91,7 +97,7 @@ require_once('config.php');
                     <div class="w-full sm:w-half formbold-px-3">
                         <div class="formbold-mb-5 w-full">
                             <label for="sala" class="formbold-form-label">Sala</label>
-                            <select name="sala" require>
+                            <select name="sala" class="selections" require>
                                 <option value="big">grande</option>
                                 <option value="small">piccola</option>
                             </select>
