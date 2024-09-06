@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $mail->Host = 'smtp.gmail.com';
                         $mail->SMTPAuth = true;
                         $mail->Username = 'noreply.devaticket@gmail.com'; // Cambia con la tua email
-                        $mail->Password = 'rwzb wcsc iemy kaxp';  // Usa la tua password per le app
+                        $mail->Password = '';  // Usa la tua password per le app
                         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                         $mail->Port = 587;
 
