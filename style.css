@@ -258,11 +258,13 @@ header div {
   padding: 15px;
   border-radius: 10%;
   color: #6b7280;
+  background-color: white;
 }
 .selection_notify{
   padding: 6px;
   border-radius: 10%;
   color: #6b7280;
+  background-color: white;
 }
 .notifiche_butt{
   padding: 6px 10px;
